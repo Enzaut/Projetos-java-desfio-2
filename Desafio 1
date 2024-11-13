@@ -1,0 +1,100 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package arrayNotas;
+
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+    
+/**
+ *
+ * @author enzo.gomide
+ */
+public class array10 extends JFrame{
+  
+    private JTextField[] notaFields = new JTextField[10];
+    private JButton calcularButton = new JButton("Calcular Média");
+    private JTextArea resultadoArea = new JTextArea(5, 20);
+
+    public array10() {
+        setTitle("Calculadora de Média de Notas");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new BorderLayout());
+
+        // Painel para inserir notas
+        JPanel notaPanel = new JPanel(new GridLayout(10, 2));
+        for (int i = 0; i < 10; i++) {
+            notaPanel.add(new JLabel("Nota " + (i + 1) + ":"));
+            notaFields[i] = new JTextField();
+            notaPanel.add(notaFields[i]);
+        }
+
+        // Painel para o botão de calcular
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(calcularButton);
+
+        // Área de texto para exibir o resultado
+        resultadoArea.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(resultadoArea);
+
+        // Adiciona componentes à janela principal
+        add(notaPanel, BorderLayout.NORTH);
+        add(buttonPanel, BorderLayout.CENTER);
+        add(scrollPane, BorderLayout.SOUTH);
+
+        // Configura o evento do botão
+        calcularButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                calcularMedia();
+            }
+        });
+
+        pack();
+        setLocationRelativeTo(null); // Centraliza a janela
+        setVisible(true);
+    }
+
+    private void calcularMedia() {
+        double[] notas = new double[10];
+        double soma = 0;
+
+        try {
+            // Lê as notas dos campos de texto
+            for (int i = 0; i < 10; i++) {
+                notas[i] = Double.parseDouble(notaFields[i].getText());
+                soma += notas[i];
+            }
+
+            // Calcula a média
+            double media = soma / notas.length;
+
+            // Exibe a média e as notas maiores que a média
+            StringBuilder resultado = new StringBuilder();
+            resultado.append("Média das notas: ").append(media).append("\n");
+            resultado.append("Notas maiores que a média:\n");
+
+            for (double nota : notas) {
+                if (nota > media) {
+                    resultado.append(nota).append("\n");
+                }
+            }
+
+            // Exibe o resultado na área de texto
+            resultadoArea.setText(resultado.toString());
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Por favor, insira apenas números válidos para as notas.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public static void main(String[] args) {
+        new array10();
+    }
+}
+
+    
