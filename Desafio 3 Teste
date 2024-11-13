@@ -1,0 +1,27 @@
+package Desafios;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class Teste {
+    public static void main(String[] args) {
+        // Criando um HashMap para armazenar funcionários, onde a chave é o ID do funcionário
+        Map<Integer, Funcionario> funcionarios = new HashMap<>();
+
+        // Instanciando alguns funcionários
+        Funcionario func1 = new Funcionario(1, "Alice", "Gerente", 5000.0);
+        Funcionario func2 = new Funcionario(2, "Bob", "Analista", 3000.0);
+        Funcionario func3 = new Funcionario(3, "Carlos", "Desenvolvedor", 4000.0);
+
+        // Colocando os funcionários no HashMap
+        funcionarios.put(func1.getId(), func1);
+        funcionarios.put(func2.getId(), func2);
+        funcionarios.put(func3.getId(), func3);
+
+        // Exibindo os funcionários armazenados no HashMap
+        System.out.println("Funcionários no HashMap:");
+        for (Map.Entry<Integer, Funcionario> entry : funcionarios.entrySet()) {
+            System.out.println("ID: " + entry.getKey() + " -> " + entry.getValue());
+        }
+    }
+}
